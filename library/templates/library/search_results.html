@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container"> 
+    <h1>Search Results for "{{ query }}"</h1>
+    <div class="list-container">
+        {% if books %}
+            {% for book in books %}
+            <div class="book-card">
+                <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook">
+                    <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" class="book-cover">
+                </a>
+                <div class="card-info">
+                    <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook"><h2>{{ book.title }}</h2></a>
+                    <p>By: {{ book.author }}</p>
+                    <p>Subject: {{ book.subject }}</p>
+                    <p>Grade: {{ book.grade }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No books found matching your query.</p>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'script.js' %}"></script>
+{% endblock content %}

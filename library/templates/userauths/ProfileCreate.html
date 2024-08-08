@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyArena</title>
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/pform.css' %}">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <span class="logo">StudyArena</span>
+        </div>
+        <div class="nav-middle flex-div"></div>
+        <div class="nav-right flex-div">
+        </div>
+    </nav>
+<body>
+    <div class="form-box">
+        <h1 id="title">Create Profile</h1>
+        <form class="createprofile-frm" action="{% url 'userauths:profile-create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <div class="input-field" id="nameField">
+                    {{ form.name }}
+                </div>
+                <div class="input-field" id="nameField">
+                    {{ form.school }}
+                </div>
+                <div class="input-field" id="nameField">
+                    {{ form.profile_picture }}
+                </div>
+                <div class="input-field">
+                    <p>Grade level</p>
+                    {{ form.grade_level }}
+                </div>
+            </div>
+            <div class="btn-field">
+                <button type="submit">Create Profile</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

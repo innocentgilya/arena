@@ -1,0 +1,22 @@
+{% extends 'partials/base2.html' %}
+{% load static %}
+{% block content %}
+    <!----------sidebar---------->
+    <div class="side-bar">
+        <div class="shortcut-links">
+            <h1>Settings</h1>
+            <a href="{% url 'library:home' %}"><p>Account</p></a>
+            <a href=""><p>Notifications</p></a>
+            <a href=""><p>Privacy</p></a>
+            <a href="{% url 'library:my_books' %}">Billing & payments</p></a>
+        </div>
+    </div>
+
+    <!------------main------------------>
+    <div class="container">
+        <p>Accounr</p>
+        
+    </div>
+
+
+{% endblock content %}

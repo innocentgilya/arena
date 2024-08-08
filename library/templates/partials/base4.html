@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyArena</title>
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <a class="menu-icon"><i class="fa-solid fa-bars"></i></a>
+            <span class="logo">StudyArena</span>
+        </div>
+        <div class="nav-middle flex-div">
+            <div class="search-box flex-div">
+                <form  method="GET" action="{% url 'library:search' user_id=profile.user.id profile_id=profile.id %}">
+                    <input type="text" placeholder="Search for books...">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="nav-right flex-div">
+            <a href=""><i class="fa-regular fa-bell"></i></a>
+            <a href="javascript:void(0)" class="user-icon" onclick="toggleMenu()"><img src="{{ profile.profile_picture.url }}" alt="Profile 1"></i></i></a>
+        </div>
+        <div class="sub-menu-wrp" id="sub-menu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="" alt="">
+                    <h3>{{ profile.name }}</h3>
+                </div>
+                <hr>
+                <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}" class="sub-menu-link">
+                    <i class="fa-solid fa-gear"></i>
+                    <p>Settings</p>
+                    <span>></span>
+                </a>                               
+                <a href="#" class="sub-menu-link">
+                    <i class="fa-solid fa-question"></i>
+                    <p>help & support</p>
+                    <span>></span>
+                </a>
+                <a href="{% url 'userauths:sign-out' %}" class="sub-menu-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!----------sidebar---------->
+    <div class="side-bar">
+        <div class="shortcut-links">
+            <h2>Settings</h2>
+            {% if profile %}
+            <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}"><p>Account</p></a>
+            {% else %}
+            <a href="{% url 'library:home' %}"><p>Account</p></a>
+            {% endif %}
+            <a href=""><p>Profiles</p></a>
+            <a href=""><p>Notifications</p></a>
+            <a href="{% url 'library:home' %}"><p>Billing & Payments</p></a>
+        </div>
+    </div>
+
+
+{% block content %}
+
+{% endblock content %}
+<script>
+    let subMenu = document.getElementById("sub-menu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>

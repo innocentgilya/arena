@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyArena</title>
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/sty.css' %}">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <span class="logo">StudyArena</span>
+        </div>
+        <div class="nav-middle flex-div">
+
+        </div>
+        <div class="nav-right flex-div">
+
+        </div>
+    </nav>
+    <main class="profile-list">
+        <h1>Who's reading?</h1>
+        <div class="profiles">
+            {% for profile in profiles %}
+            <a href="{% url 'library:profile-home' profile_id=profile.id %}">
+                <div class="profile">
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile 1">
+                    <p>{{ profile.name }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <a href="{% url 'userauths:profile-create' %}"><button>Add a new profile</button></a>
+    </main>
+</body>
+</html>

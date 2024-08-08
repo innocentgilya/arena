@@ -1,0 +1,44 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container"> 
+    <h2>Recently Read Books</h2>
+    <div class="list-container">
+        {% for user_book in recently_read_books %}
+        <div class="book-card">
+            <a href="{% url 'library:open-book' profile_id=profile.id id=user_book.book.id %}" class="viewbook">
+                <img src="{{ user_book.book.book_cover.url }}" alt="{{ user_book.book.title }}" class="book-cover">
+            </a>
+            <div class="card-info">
+                <a href="{% url 'library:open-book' profile_id=profile.id id=user_book.book.id %}" class="viewbook"><h2>{{ user_book.book.title }}</h2></a>
+                <p>By: {{ user_book.book.author }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No recently read books.</p>
+        {% endfor %}
+    </div>
+    
+    <h2>Saved Books</h2>
+    <div class="list-container">
+        {% for user_book in saved_books %}
+        <div class="book-card">
+            <a href="{% url 'library:open-book' profile_id=profile.id id=user_book.book.id %}" class="viewbook">
+                <img src="{{ user_book.book.book_cover.url }}" alt="{{ user_book.book.title }}" class="book-cover">
+            </a>
+            <div class="card-info">
+                <a href="{% url 'library:open-book' profile_id=profile.id id=user_book.book.id %}" class="viewbook"><h2>{{ user_book.book.title }}</h2></a>
+                <p>By: {{ user_book.book.author }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No saved books.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{% static 'script.js' %}"></script>
+</body>
+</html> 
+{% endblock content %}

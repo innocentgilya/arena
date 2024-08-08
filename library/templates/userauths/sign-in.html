@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing up and sing in page</title>
+    <link rel="stylesheet" href="{% static 'assets/s.css' %}">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+        <div class="form-box">
+            <h1 id="title">Sign in</h1>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <P>Lost passowrd <a href="#">Click here</a></P>
+                </div>
+                <div class="btn-field">
+                    <button type="submit" id="SignupBtn">Sign in</button>
+                </div>
+            </form>
+
+        </div>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+{% extends 'partials/base4.html' %}
+{% load static %}
+{% block content %}
+
+    <!-----main ---->
+    <div class="container"> 
+        <h3>Account</h3>
+        <div class="containerlist">
+            <p>Account name: {{ user.username }}</p>
+            <p>Account email: {{ user.email }}</p>
+            <hr>
+            <h4>profile</h4>
+                <div class="profile-settings">
+                    <img src="{{ profile.profile_picture.url }}" alt="Profile 1">
+                    <p>{{ profile.name }}</p>
+                </div>
+            <a href=""><button>Delete proflie</button></a>
+        </div>
+        <hr>
+        <h4>Make changes</h4>
+        <a href=""><button>Edit Account</button></a>
+    </div>
+
+<script src="{% static 'assets/script.js' %}"></script>
+</body>
+</html> 
+{% endblock content %}

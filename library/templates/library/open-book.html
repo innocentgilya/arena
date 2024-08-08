@@ -1,0 +1,38 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+    <!------mainopenbook------>
+    <div class="container read-container">
+        <div class="row">
+            {% if book.pdf_file %}
+            <div class="open-book">
+                <!-- Use the URL pattern to serve the PDF securely -->
+                <iframe src="{% url 'library:serve_pdf' book_id=book.id %}" width="700" height="750" style="border:none;"></iframe>
+            </div>
+            {% endif %}
+            <!-- Uncomment this section if you want to display the right sidebar -->
+            <!--
+            <div class="right-sidebar">
+                <div class="sidebooks-list">
+                    <a href="" class="small-bookcover"><img src="{{ book.book_cover.url }}" alt=""></a>
+                    <div class="book-info">
+                        <p>{{ book.title }}</p>
+                        <p>By: {{ book.author }}</p>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+
+<script src="{% static 'script.js' %}"></script>   
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+        if (event.ctrlKey && (event.key === 'p' || event.key === 's' || event.key === 'u' || event.key === 'Shift' || event.key === 'j')) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+{% endblock content %}

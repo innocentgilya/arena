@@ -1,0 +1,53 @@
+from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
+from userauths.models import Profile
+
+# Create your models here.
+class Book(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    grade = models.CharField(max_length=15)
+    subject = models.CharField(max_length=15)
+    book_cover = models.ImageField(upload_to='book_covers/', null=True, blank=True)
+    published_date = models.DateField()
+    allowed_users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    pdf_file = models.FileField(upload_to='book_pdfs/')
+
+    
+    def __str__(self):
+        return self.title
+    
+    def get_pdf_url(self):
+        if self.pdf_file:
+            return self.pdf_file.url
+        return None
+
+    @classmethod
+    def add_book(cls, title, author, published_date, grade, subject ,book_cover):
+    #Create a new book instance
+        new_book = cls(
+            title=title, author=author, published_date=published_date, 
+            grade=grade, subject=subject, book_cover=book_cover 
+        )
+        # Save the new book instance to the database
+        new_book.save()
+        return new_book
+
+    def delete_book(self):
+        '''delete the book instance from the database'''
+        self.delete()
+
+
+class UserBook(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='user_book', default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    current = models.BooleanField(default=False)
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.book.title}'
+

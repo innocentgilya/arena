@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Update Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+{% endblock %}
+
+<!----- use them later well MUST CHECK ON THESE -->
+<a href="{% url 'profile_update' profile.id %}">Edit Profile</a>
+<a href="{% url 'profile_delete' profile.id %}">Delete Profile</a>

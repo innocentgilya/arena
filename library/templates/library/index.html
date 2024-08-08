@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SutdyArena</title>
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+    <link rel="stylesheet" href="{% static 'assets/welcome.css' %}">
+    
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href=""><p>StudyArena</p></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="{% url 'userauths:sign-in' %}">Login</a></li>
+                    <li><a href="{% url 'userauths:sign-up' %}">Sign-up</a></li>
+                    <li><a href="#Subscriptuin-plan">Subscription</a></li>
+                    <li><a href="">Donate</a></li>
+                </ul>
+            </div>
+            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <div class="textbox">
+            <h1>Welcome to <span>StudyArena</span></h1> 
+            <p>Your ultimate platform for learning and revision materials.</p>
+            <a href="{% url 'userauths:sign-up' %}" class="hero-btn">Get started</a>
+        </div>
+    </section>
+
+
+<!----------About us page----------->
+<section class="AboutUs">
+    <h1>Who Are we?</h1>
+    <p>Welcome to StudyArena, a dynamic platform dedicated to empowering students through comprehensive educational support and career development opportunities.<br>
+        At StudyArena,
+        we are committed to revolutionizing the way students learn and prepare for their future careers.</p>
+    <div class="row">
+        <div class="course-col">
+            <h3>Our Mission</h3>
+            <p>
+                Our mission is to provide students with access to high-quality learning resources, 
+                including revision materials, past papers, and interactive study groups.<br>
+                We aim to foster a supportive learning environment where every student can thrive academically and personally.
+            </p>
+        </div>
+        <div class="course-col">
+            <h3>Our Vision</h3>
+            <p>
+                Driven by a passion for education and innovation, 
+                Study Arena envisions a future where every student has equal access to quality learning resources and career opportunities.<br> 
+                We strive to empower students to achieve their full potential and contribute positively to society.
+            </p>
+        </div>
+        <div class="course-col">
+            <h3>What We Offer</h3>
+            <p>
+                We offer Revision materials, Textbooks, Pastpapers, Books
+            </p>
+        </div>
+    </div>
+</section>
+
+<!--------Our Library------->
+
+<section class="our-library">
+    <h1>Our Library</h1>
+    <div class="row"> 
+        <div class="course-col">
+            <img src="{% static 'assets/images/groupStudying.jpg' %}" alt="">
+            <p>Available books</p>
+        </div>
+        <div class="course-col">
+            <img src="{% static 'assets/images/study.jpg' %}" alt="">
+            <p>Available books</p>
+        </div>
+        <div class="course-col">
+            <img src="{% static 'assets/images/chilling.jpg' %}" alt="">
+            <p>Available books</p>
+        </div>
+    </div>
+    
+
+</section>
+
+<!-----Subscription ------>
+<section class="AboutUs" id="Subscriptuin-plan">
+    <h1>Our Subscription plans</h1>
+    <p>
+        We offer three subscription plans: <br> Basic plan, Intermediate & Premium.
+    </p>
+    <div class="row">
+        <div class="course-col" id="col">
+            <h3>Basic Plan</h3>
+            <h4>Ksh350.00 per month</h4>
+            <p class="Subscription">    
+                1 Profile<br>
+                All Available PastPapaers<br>
+                All  Available Textbooks<br>
+                All Available Books<br>
+            </p>
+            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
+        </div>
+        <div class="course-col" id="col">
+            <h3>Intermediate</h3>
+            <h4>Ksh500.00 per month</h4>
+            <p>    
+                2 Profiles<br>
+                All Available PastPapaers<br>
+                All  Available Textbooks<br>
+                All Available Books<br>
+            </p>
+            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
+        </div>
+        <div class="course-col" id="col">
+            <h3>Premium</h3>
+            <h4>Ksh750.00 per month</h4>
+            <p>    
+                4 Profiles<br>
+                All Available PastPapaers<br>
+                All  Available Textbooks<br>
+                All Available Books<br>
+            </p>
+            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
+        </div>
+    </div>
+</section>
+
+
+
+<!-------Footer-------------->
+<section class="footer">
+    <h4>Where to find us</h4>
+    <div class="icons">
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-x-twitter"></i>
+    </div>
+    <p>follow us on social media</p>
+
+</section>
+
+
+
+<!-----Javascript for Toggle Menu------>
+<script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu(){
+        navLinks.style.right = "0"
+    }
+
+    function hideMenu(){
+        navLinks.style.right = "-200px"
+    }
+</script>
+</body>
+</html>
+
+
