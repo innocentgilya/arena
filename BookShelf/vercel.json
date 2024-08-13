@@ -9,5 +9,8 @@
             "src": "/(.*)",
             "dest": "BookShelf/wsgi.py"
         }
-    ]
+    ],
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/" }
+      ]
 }
