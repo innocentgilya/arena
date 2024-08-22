@@ -2,15 +2,28 @@
 {
     "version":2,
     "builds": [
-      { "src": "*.js", "use": "@vercel/node" }
+      { "src": "BookShelf/wsgi.py", "use": "@vercel/python", "config":{
+        "maxlambdaSize" : "15mb",
+        "runtime" : "python3.10"
+      } },
+      {
+        "src:" : "build.sh",
+        "use" : "@vercel/static-build",
+        "config" : {
+            "distDir": "staticfiles_build"
+        }
+      }
     ],
     "routes": [
         {
+            "src" : "/static/(.*)",
+            "dest" : "/statis/$1"
+        },
+
+        {
           "src": "/(.*)",
-          "dest": "/"
+          "dest": "/BookShelf/wsgi.py"
         }
-    ],
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/" }
-      ]
+    ]
+
 }

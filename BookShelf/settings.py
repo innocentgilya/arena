@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 from pathlib import Path
 import os
+import dj_database_url
+from decouple import config  
 
 
 
@@ -95,6 +97,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
@@ -136,6 +139,7 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
 STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles',)
 
