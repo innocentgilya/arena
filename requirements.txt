@@ -9,6 +9,7 @@ gunicorn==23.0.0
 packaging==24.1
 pathlib==1.0.1
 pillow==10.3.0
+platformshconfig==2.4.0
 psycopg2-binary==2.9.9
 python-decouple==3.8
 pytz==2024.1
