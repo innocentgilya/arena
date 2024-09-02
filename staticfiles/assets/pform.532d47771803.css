@@ -1,0 +1,120 @@
+/* Reset some basic styles */
+body, h1, p, ul, li, form, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the body font family and a background color */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #E5F0FF;
+}
+
+/* Flexbox container styles */
+.flex-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Navigation bar styling */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(4, 9, 30);
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left .logo {
+    font-family: 'Russo One', sans-serif;
+    font-size: 24px;
+}
+
+.nav-right a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* Form container styling */
+.form-box {
+    width: 90%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 100px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-field input, .input-field select, .input-field textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Button styling */
+.btn-field {
+    text-align: center;
+}
+
+.btn-field button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgba(4, 9, 30);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-field button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .form-box {
+        width: 100%;
+        margin: 20px;
+    }
+}
