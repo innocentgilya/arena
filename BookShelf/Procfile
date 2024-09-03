@@ -1,1 +1,1 @@
- web: gunicorn BookShelf.wsgi  
+ web: gunicorn BookShelf.wsgi  --log-file -
