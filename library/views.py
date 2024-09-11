@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse,FileResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, UserBook
 from userauths.models import Profile, User
@@ -115,25 +115,17 @@ def myshelf(request, profile_id, user_id):
 @login_required
 def serve_pdf(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    pdf_path = book.pdf_file.path 
+    pdf_path = book.pdf_file.path
     print(f"Serving PDF from: {pdf_path}")  # Debug log
 
-    if not os.path.exists(pdf_path):
-        raise Http404 ("The requested PDF file was not found.")
-    
-    with open(pdf_path, 'rb') as f:
-        response = HttpResponse(f.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline; filename=' + os.path.basename(pdf_path)
-        return response
+    try:
+        return FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+    except FileNotFoundError:
+        raise Http404("The requested PDF file was not found.")
 
 @login_required
 def open_book(request, profile_id, id):
     '''the view to open the book'''
-    #try:
-        # Retrieve the specific instance of the Book model
-    #open_pages = get_object_or_404(Book, id=id)
-        # Get the PDF URL using the instance method
-    #pdf_url = open_pages.get_pdf_url()
     profile = get_object_or_404(Profile, id=profile_id, user=request.user)
     book = get_object_or_404(Book, id=id)
     context = {
@@ -141,12 +133,17 @@ def open_book(request, profile_id, id):
         'profile': profile,
         }
 
-    #context = {'open_pages': open_pages, 'pdf_url': pdf_url}
-
     return render(request, 'library/open-book.html', context)
 
-    #except Book.DoesNotExist:
-        #return redirect(request, 'library/home.html', context)
+
+
+
+
+
+
+
+
+
 
 
 

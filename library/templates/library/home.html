@@ -8,9 +8,9 @@
         <div class="list-container">
             {% for book in books %}
             <div class="book-card">
-                <a href="{% url 'library:open-book' id=book.id %}" class="viewbook"><img src="{{ book.book_cover.url }}" alt="{{ book.title }}" class="book-cover"></a>
+                <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook"><img src="{{ book.book_cover.url }}" alt="{{ book.title }}" class="book-cover"></a>
                 <div class="card-info">
-                    <a href="{% url 'library:open-book' id=book.id %}" class="viewbook"><h2>{{ book.title }}</h2></a>
+                    <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook"><h2>{{ book.title }}</h2></a>
                     <p>By: {{ book.author }}</p>
                 </div>
             </div>

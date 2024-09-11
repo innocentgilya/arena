@@ -17,9 +17,7 @@ urlpatterns = [
     #the url that takes you to ...
     #path('add_book/<int:book_id>/', views.add_book, name='add_book'),
     # The url to open the book pdf file
-    path('book/<int:profile_id>/<int:id>/', views.open_book, name='open-book'),
-
-    
+    path('book/<int:profile_id>/<int:id>/', views.open_book, name='open-book'), 
     # to save a book
     path('save-book/<int:book_id>/', views.save_book, name='save-book'),
     # url to a hompage associated specificaly to aparticular user

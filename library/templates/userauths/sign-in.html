@@ -25,6 +25,16 @@
                         <input type="password" name="password" placeholder="Password" required>
                     </div>
                     <P>Lost passowrd <a href="#">Click here</a></P>
+                    {% if messages %}
+
+                        {% for message in messages %}
+                            <div class="alert alert-{{message.tags}}">
+                                <strong>{{ message }}</strong>
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
                 </div>
                 <div class="btn-field">
                     <button type="submit" id="SignupBtn">Sign in</button>
