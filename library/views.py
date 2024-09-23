@@ -1,6 +1,6 @@
 from django.http import HttpResponse,FileResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Book, UserBook
+from .models import Book, UserBook, PastPapaer, UserPastPaper
 from userauths.models import Profile, User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -112,6 +112,7 @@ def myshelf(request, profile_id, user_id):
     '''show all subjects for the textbooks'''
     #subject = Book.objects.filter()
 
+
 @login_required
 def serve_pdf(request, book_id):
     book = get_object_or_404(Book, id=book_id)
@@ -119,7 +120,10 @@ def serve_pdf(request, book_id):
     print(f"Serving PDF from: {pdf_path}")  # Debug log
 
     try:
-        return FileResponse(open(pdf_path, 'rb'), content_type='application/pdf')
+        with open(pdf_path, 'rb') as pdf_file:
+            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline; filename="book.pdf"'
+            return response
     except FileNotFoundError:
         raise Http404("The requested PDF file was not found.")
 
@@ -131,10 +135,36 @@ def open_book(request, profile_id, id):
     context = {
         'book': book,
         'profile': profile,
-        }
+    }
 
     return render(request, 'library/open-book.html', context)
 
+#to serve the pdf past papaer
+@login_required
+def serve_pdf(request, pastpaper_id):
+    pastpaper = get_object_or_404(PastPapaer, id=pastpaper_id)
+    pdf_path = pastpaper.pdf_file.path
+    print(f"Serving PDF from: {pdf_path}")  # Debug log
+
+    try:
+        with open(pdf_path, 'rb') as pdf_file:
+            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'inline; filename="pastpaper.pdf"'
+            return response
+    except FileNotFoundError:
+        raise Http404("The requested PDF file was not found.")
+
+@login_required
+def open_pastpapaer(request, profile_id, id):
+    '''the view to open the book'''
+    profile = get_object_or_404(Profile, id=profile_id, user=request.user)
+    pastpaper = get_object_or_404(PastPapaer, id=id)
+    context = {
+        'pastpaper': pastpaper,
+        'profile': profile,
+    }
+
+    return render(request, 'library/open-pastpaper.html', context)
 
 
 

@@ -4,6 +4,21 @@ from django.utils import timezone
 from django.conf import settings
 
 # Create your models here.
+# Define grade choices
+GRADE_CHOICES = [
+    ('Grade 1', 'Grade 1'),
+    ('Grade 2', 'Grade 2'),
+    ('Grade 3', 'Grade 3'),
+    ('Grade 4', 'Grade 4'),
+    ('Grade 5', 'Grade 5'),
+    ('Grade 6', 'Grade 6'),
+    ('Grade 7', 'Grade 7'),
+    ('Grade 8', 'Grade 8'),
+    ('Grade 9', 'Grade 9'),
+    ('Grade 10', 'Grade 10'),
+    ('Grade 11', 'Grade 11'),
+    ('Grade 12', 'Grade 12'),
+]
 class User(AbstractUser):
     ''' extends the user definition '''
     email = models.EmailField(unique=True)
@@ -27,7 +42,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True, default=timezone.now)
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     school = models.CharField(max_length=50)
-    grade = models.CharField(max_length=50)
+    grade = models.CharField(max_length=50, choices=GRADE_CHOICES)
 
 
     def __str__(self):

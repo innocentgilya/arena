@@ -3,172 +3,534 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to SutdyArena</title>
+    <title>Study Arena</title>
+    <link rel="stylesheet" href="{% static 'assets/StudyArena.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
-    <link rel="stylesheet" href="{% static 'assets/welcome.css' %}">
-    
+</head>
 </head>
 <body>
-    <section class="header">
-        <nav>
-            <a href=""><p>StudyArena</p></a>
-            <div class="nav-links" id="navLinks">
-                <i class="fa-solid fa-xmark" onclick="hideMenu()"></i>
-                <ul>
-                    <li><a href="{% url 'userauths:sign-in' %}">Login</a></li>
-                    <li><a href="{% url 'userauths:sign-up' %}">Sign-up</a></li>
-                    <li><a href="#Subscriptuin-plan">Subscription</a></li>
-                    <li><a href="">Donate</a></li>
-                </ul>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#">StudyArena</a>
+        </div>
+        <ul>
+            <li><a href="#log">Login</a></li>
+            <li><a href="#create-account">Create Account</a></li>
+            <li><a href="#subscription">Subscription</a></li>
+            <li><a href="#Library">Our Library</a></li>
+            <li><a href="#About-us">About Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h1>Welcome to Study Arena</h1>
+        <p>Your ultimate platform for learning and revision materials.</p>
+        <a href="#login" class="cta">Get Started</a>
+       
+    </section>
+
+   
+     <div class="welcome">
+       <p> Welcome to Study Arena! We are delighted to have you here and appreciate your visit.<br>
+         Thank you for being a valued member of our learning community. Your commitment to education and growth inspires us every day.<br>
+         We are dedicated to providing you with the best resources and support on your learning journey. Enjoy your time here, and feel free to explore all the materials and opportunities that await you.<br>
+         Thank you for choosing Study Arena!</p>
+       <p><a href="#login" class="pilink">Log in</a> now  and enjoy your learning. <b><i>SUCCESS</i></b></p>
+       <p>If you dont have an account yet you can <a href="#create-account" class="pilink">create your acccount here</a></p>
+     </div><br>
+    <!--At a glance section-->
+     <section class="glance-section">
+        <div class="container">
+            <div class="text-content">
+                <h1>Study Arena at a Glance</h1>
+                <h2>What is Study Arena?</h2>
+                <p>Study Arena is an innovative online platform dedicated to revolutionizing the educational experience for students of all levels. Our mission is to provide comprehensive and accessible learning resources, career guidance, and skill development opportunities to help students succeed academically and professionally.</p>
+                
+                <h2>Key Features of Study Arena</h2>
+                
+                <h3>Educational Resources</h3>
+                <p>Extensive Library: Access a vast collection of learning materials, including textbooks, revision guides, and past exam papers, tailored to various educational levels and subjects.</p>
+                <p>Interactive Content: Engage with interactive lessons, quizzes, and video tutorials designed to make learning enjoyable and effective.</p>
+
+                <h3>AI-Powered Assistance</h3>
+                <p>Personalized Learning Support: Our platform integrates cutting-edge AI technology, similar to ChatGPT, to offer personalized learning assistance, answer questions, and provide study recommendations.</p>
+                <p>24/7 Availability: Get help whenever you need it, day or night, with our always-available AI assistant.</p>
+
+                <h3>Career Coaching</h3>
+                <p>Early Career Guidance: Explore diverse career paths from an early age with our expert career coaching. We help students understand different professions, required skills, and job market trends.</p>
+                <p>Industry Insights: Gain exposure to various industries through virtual tours, interviews with professionals, and career workshops.</p>
+
+                <h3>Skill Development</h3>
+                <p>Technical Skills: Learn essential technical skills, such as coding, data analysis, and digital marketing, to stay competitive in today's job market.</p>
+                <p>Soft Skills: Develop critical soft skills, including communication, teamwork, and problem-solving, to enhance your personal and professional growth.</p>
+
+                <h3>Community Engagement</h3>
+                <p>Learning Groups: Connect with peers, form study groups, and collaborate on projects to enhance your learning experience.</p>
+                <p>Forums and Discussions: Participate in forums and discussions to share knowledge, ask questions, and get support from the Study Arena community.</p>
+
+                
+                
             </div>
-            <i class="fa-solid fa-bars" onclick="showMenu()"></i>
-        </nav>
-    {% if messages %}
-
-        {% for message in messages %}
-            <div class="alert alert-{{message.tags}}">
-                <strong>{{ message }}</strong>
+            <div class="images-content">
+                <div class="image-item">
+                    <img src="https://plus.unsplash.com/premium_photo-1661663340820-970940a9ef2f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZGVudHMlMjBzdHVkeWluZyUyMHVzaW5nJTIwbGFwdG9wc3xlbnwwfHwwfHx8MA%3D%3D" alt="Image 1">
+                    
+                </div>
+                <div class="image-item">
+                    <imgg src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZGVudHMlMjBtZW50b3JzaGlwJTIwcHJvZ3JhbW1lfGVufDB8fDB8fHww" alt="Image 2">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0dWRlbnRzfGVufDB8fDB8fHww" alt="Image 3">
+                    
+                </div>
+                <div class="image-item">
+                    <img src="https://i.pinimg.com/236x/9a/35/75/9a357546f6c363584b3ddf3b35cd7ae4.jpg" alt="Image 4" id="image4">
+                    
+                </div>
             </div>
+        </div>
+    </section>
+      <!-- Registration Section -->
+    <section class="login">   
+       <h2 id="log">Login Page</h2>
+      <div class="main-container">
+        <div class="spacer"></div>
+        <div class="content-container">
+            <div class="image-container">
+                <div class="overlay">
+                    <div id="overlay-text">Welcome to Study Arena! Join us for an enriching learning experience.</div>
+                </div>
+            </div>
+            <div class="login-box">
+                <div class="logo">
+                    <img src="{% static 'mbele yenu plain.png' %}" alt="Logo">
+                    <h2>Login</h2>
+                </div>
+                <form>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="options">
+                        <label><input type="checkbox"> Remember me</label><br>
+                        <a href="#" class="forgot-password">Forgot your password?</a>
+                    </div>
+                    <button type="submit" class="cta-button">Log in</button>
+                </form>
+                <div class="create-account">
+                    <p>You don't have an account yet? <a href="create-account.html">Create your account</a></p> <br>
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </section>
+    <!--Create Account section-->
+    <!--Create Account section-->
 
-        {% endfor %}
 
-    {% endif %}
-        <div class="textbox">
-            <h1>Welcome to <span>StudyArena</span></h1> 
-            <p>Your ultimate platform for learning and revision materials.</p>
-            <a href="{% url 'userauths:sign-up' %}" class="hero-btn">Get started</a>
+ <section id="create-account">
+        <h2>Signup Page</h2>
+        <p id="sp">Creat Your account</p>
+        <div class="form-container">
+            <form id="signup-form">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required placeholder="Evans Omondi">
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="evansom360@gmail.com">
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                
+                <label for="school">School</label>
+                <input type="text" id="school" name="school" placeholder="St Mary's Yala">
+                
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="custom">Custom</option>
+                </select>
+                
+                <label for="grade-level">Grade Level</label>
+                <select id="grade-level" name="grade-level" required>
+                    <option value="grade1">Grade 1</option>
+                    <option value="grade2">Grade 2</option>
+                    <option value="grade3">Grade 3</option>
+                    <option value="grade4">Grade 4</option>
+                    <option value="grade5">Grade 5</option>
+                    <option value="grade6">Grade 6</option>
+                    <option value="grade7">Grade 7</option>
+                    <option value="grade8">Grade 8</option>
+                    <option value="form1">Form 1</option>
+                    <option value="form2">Form 2</option>
+                    <option value="form3">Form 3</option>
+                    <option value="form4">Form 4</option>
+                </select>
+                <p>By clicking sign up you agree to our <a href="#login">Terms and conditions</a></p>
+                <button type="submit">Sign Up</button>
+                <p>Have an account already? <a href="login">Login</a></p>
+            </form>
+        </div>
+    </section>
+   
+                
+                      
+    
+    
+    
+    <!--subscription section-->
+    <section id="subscription">
+        <p class="par">Below are our pricing packages for you </p>
+    <p class="par">Choose one that best suits you. All the best</p>
+    <section class="pricing">
+    
+        <div class="package">
+           
+            <h2>Free</h2>
+            <p class="access">Basic Access</p>
+            <h2>@ksh0.00 per term</h2>
+            <button>Select Plan</button>
+            <ul>
+                <li>Access to a limited set of lecture notes, slides, and revision materials</li>
+                <li>Community support</li>
+                <li>Basic learning materials</li>
+                <li>A few selected past exam papers and solutions</li>
+                <li>Ability to join public study groups created by other students.</li>
+                <li>Simple progress monitoring for subjects or courses.</li>
+                <li>Access to basic customer support</li>
+                <li>Access to basic customer support</li>
+            </ul>
+        
+        </div>
+        <div class="package">
+            <h2>Normal</h2>
+            <p class="access">Standard Access</p>
+            <h2>@ksh3000 per term</h2>
+            <button>Select Plan</button>
+            <ul>
+                <li>Access to all resources</li>
+                <li>Priority support</li>
+                <li>Standard learning materials</li>
+                <li>Full access to all lecture notes, slides, and comprehensive revision materials.</li>
+                <li>Access to all past exam papers and detailed solutions.</li>
+                <li>Ability to create private study groups.</li>
+                <li>Join unlimited study groups with enhanced collaboration tools.</li>
+                <li>Detailed progress monitoring with reports and analytics.</li>                </li>
+                <li>Access to periodic webinars and workshops on various academic and career-related topics.</li>
+                <li>Receive personalized recommendations for study materials and courses based on performance and interests.</li>
+            
+            </ul> <br><br><br><br><br><br><br><br>
+        
+        </div>
+        <div class="package">
+            <h2>Premium</h2>
+            <p class="access">Full Access</p>
+            <h2>@ksh5000 per term</h2>
+            <button>Select Plan</button>
+            <ul>
+                <li>Exclusive webinars</li>
+                <li>Access to premium content including exclusive notes, slides, and supplementary materials from top educators.</li>
+                <li>Create and manage both public and private study groups.</li>
+                <li>Use advanced collaboration tools like video calls, group chats, and shared whiteboards.</li>
+                <li>Comprehensive progress tracking with detailed analytics, custom reports, and insights</li>
+                <li>Access to exclusive webinars and workshops with industry experts and top educators.</li>
+                <li>Participation in Q&A sessions and interactive workshops.</li>
+                <li>Eligibility for scholarships and grants provided by the platform.</li>
+                <li>Access to career counseling, resume reviews, and job placement assistance.</li>
+                <li>Use of advanced AI-powered tutor for personalized learning and instant assistance with academic queries.</li>
+                
+            </ul>
         </div>
     </section>
 
-
-<!----------About us page----------->
-<section class="AboutUs">
-    <h1>Who Are we?</h1>
-    <p>Welcome to StudyArena, a dynamic platform dedicated to empowering students through comprehensive educational support and career development opportunities.<br>
-        At StudyArena,
-        we are committed to revolutionizing the way students learn and prepare for their future careers.</p>
-    <div class="row">
-        <div class="course-col">
-            <h3>Our Mission</h3>
-            <p>
-                Our mission is to provide students with access to high-quality learning resources, 
-                including revision materials, past papers, and interactive study groups.<br>
-                We aim to foster a supportive learning environment where every student can thrive academically and personally.
-            </p>
-        </div>
-        <div class="course-col">
-            <h3>Our Vision</h3>
-            <p>
-                Driven by a passion for education and innovation, 
-                Study Arena envisions a future where every student has equal access to quality learning resources and career opportunities.<br> 
-                We strive to empower students to achieve their full potential and contribute positively to society.
-            </p>
-        </div>
-        <div class="course-col">
-            <h3>What We Offer</h3>
-            <p>
-                We offer Revision materials, Textbooks, Pastpapers, Books
-            </p>
-        </div>
-    </div>
-</section>
-
-<!--------Our Library------->
-
-<section class="our-library">
-    <h1>Our Library</h1>
-    <div class="row"> 
-        <div class="course-col">
-            <img src="{% static 'assets/images/groupStudying.jpg' %}" alt="">
-            <p>Available books</p>
-        </div>
-        <div class="course-col">
-            <img src="{% static 'assets/images/study.jpg' %}" alt="">
-            <p>Available books</p>
-        </div>
-        <div class="course-col">
-            <img src="{% static 'assets/images/chilling.jpg' %}" alt="">
-            <p>Available books</p>
-        </div>
-    </div>
+    </section> 
     
-
-</section>
-
-<!-----Subscription ------>
-<section class="AboutUs" id="Subscriptuin-plan">
-    <h1>Our Subscription plans</h1>
-    <p>
-        We offer three subscription plans: <br> Basic plan, Intermediate & Premium.
-    </p>
-    <div class="row">
-        <div class="course-col" id="col">
-            <h3>Basic Plan</h3>
-            <h4>Ksh350.00 per month</h4>
-            <p class="Subscription">    
-                1 Profile<br>
-                All Available PastPapaers<br>
-                All  Available Textbooks<br>
-                All Available Books<br>
-            </p>
-            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
+    <!-- Donation section -->
+<!-- Donation section -->
+<section id="donate">
+    <h2>Support Future Scholars: Donate to Provide Free Education for All!</h2>
+    <div class="donate-container">
+        <div class="donate-image">
+            <img src="https://i.pinimg.com/564x/7c/8c/38/7c8c3888017520b3573c82ee29c0406d.jpg" alt="Donation Image">
         </div>
-        <div class="course-col" id="col">
-            <h3>Intermediate</h3>
-            <h4>Ksh500.00 per month</h4>
-            <p>    
-                2 Profiles<br>
-                All Available PastPapaers<br>
-                All  Available Textbooks<br>
-                All Available Books<br>
-            </p>
-            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
-        </div>
-        <div class="course-col" id="col">
-            <h3>Premium</h3>
-            <h4>Ksh750.00 per month</h4>
-            <p>    
-                4 Profiles<br>
-                All Available PastPapaers<br>
-                All  Available Textbooks<br>
-                All Available Books<br>
-            </p>
-            <a href="" class="hero-btn" id="hero-id">Choose Plan</a>
+        <div class="donate-text">
+            <p>We are excited to introduce the Study Arena Project, 
+                a platform dedicated to providing educational resources and support to students 
+                worldwide.<br><br>
+                However, many bright and deserving students are unable to afford school fees,
+                 hind
+                ering their potential. 
+                Your generous donations can make a significant impact 
+                by funding scholarships and educational opportunities for these students in need.<br><br> 
+                Together, 
+                we can empower the next generation through education and help them achieve their dreams. 
+                Thank you for your support!</p>
+                <img src="https://i.pinimg.com/474x/7e/35/3f/7e353fb5f0e662d5d6c55cd9302d366d.jpg" alt="Donation Image" class="image2">
+           
         </div>
     </div>
 </section>
 
 
 
-<!-------Footer-------------->
-<section class="footer">
-    <h4>Where to find us</h4>
-    <div class="icons">
-        <i class="fa-brands fa-facebook-f"></i>
-        <i class="fa-brands fa-linkedin"></i>
-        <i class="fa-brands fa-x-twitter"></i>
-    </div>
-    <p>follow us on social media</p>
+    <!--Display Section-->
+    <section id="Library"> 
+        <div class="book-section">
+            <h2>Our Library</h2>
+            <div class="book-container">
+                <div class="book-item">
+                    <img src="https://www.schandpublishing.com/uploads/bookimages/schand-books/9789352533107.jpg" alt="Book 1">
+                    <div class="book-info">
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://store.eeducationgroup.com/wp-content/uploads/2020/06/KCSE-Made-Familiar-Chem.jpg" alt="Book 2">
+                    <div class="book-info">
+                           
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.Jr31k2dRbUvFJCMs7tXU4QAAAA&pid=Api&P=0&h=220" alt="Book 3">
+                    <div class="book-info">
+                        
+                       
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.itaUvR_W-SD6RRuXIBORVgHaLL&pid=Api&P=0&h=220" alt="Book 3">
+                    <div class="book-info">
+                        
+                    
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://sanet.pics/storage-6/1120/jp22OCFJrrrZ9C6eARLiA2d59OyPx395.jpg" alt="Book 3">
+                    <div class="book-info">
+                       
+                    
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.dFEkXZOcvBJSbXlz1YOc6gAAAA&pid=Api&P=0&h=220" alt="Book 3">
+                    <div class="book-info">
+                        
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://nuriakenya.com/wp-content/uploads/2022/01/808.jpg" alt="Book 3">
+                    <div class="book-info">
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://textbookcentre.com/media/products/2010117001455.jpg" alt="Book 3">
+                    <div class="book-info">
+                     
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://www.deslegte.com/images/cached/resample/jpg/data/uploads/596/902/cms_visual_1481427.jpg_1601259530000_596x902.jpg" alt="Book 3">
+                    <div class="book-info">
+                        
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://growthex.org/wp-content/uploads/2023/04/the-intelligent-investor-3d.png" alt="Book 3">
+                    <div class="book-info">
+                        
+                       
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://officemart.co.ke/media/products/20210719/50TBI10007.jpg" alt="Book 3">
+                    <div class="book-info">
+                    
+                       
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://textbookcentre.com/media/products/2010105000235.jpg" alt="Book 3">
+                    <div class="book-info">
+                       
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://rukminim1.flixcart.com/image/1408/1408/book/9/4/5/quantum-chemistry-original-imadh24g3h9gxzk2.jpeg?q=90" alt="Book 3">
+                    <div class="book-info">
+                        
+                        
+    
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://textbookcentre.com/media/products/394.jpg" alt="Book 3">
+                    <div class="book-info">
+                       
+                        
+                    </div>
+                </div>
+                <div class="book-item">
+                    <img src="https://theschoolbox.co.ke/wp-content/uploads/2024/01/KCSE-Made-Familiar-Maths-Workbook-2024-New-Edition.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
 
-</section>
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/04/6b/38/046b38fe3055fba367cd4d590072bb5d.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/04/0e/51/040e5192191b819374d1bd9a2a245825.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/3f/98/89/3f9889e0aa9808ead02545d74230d42c.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/54/41/d5/5441d52d4741ca967e1e01f264262734.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/a9/79/70/a97970b5dc814674ce5456fce0bdc394.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+
+                <div class="book-item">
+                    <img src="https://i.pinimg.com/564x/60/c1/8d/60c18d7a2004aa71955aa1e96816f711.jpg" alt="Book 3">
+                    <div class="book-info">  
+                    </div>
+                </div>
+                <!-- I'll add more books -->
+            </div>
+        </div>
+    </section>
+      <!--About us section-->
+      <section id="About-us">
+          <h1 id="head">About Us</h1>
+          <div class="row">
+              <div id="what-we-offer">
+                  <h2>----What We Offer----</h2>
+                  <p>Educational Resources: Access to a vast library of learning materials tailored to various educational levels and subjects</p>
+                  <p>AI-Powered Assistance: Integration of cutting-edge AI technology, similar to ChatGPT, to provide personalized learning support and guidance.</p>
+                  <p>Career Coaching: Early career guidance and coaching to help students explore and prepare for diverse career paths.</p>
+                  <p>Skill Development: Opportunities to learn technical and soft skills essential for success in today's job market.</p>
+                  <p>Community Engagement: Platform for students to connect, collaborate, and learn from each other through study groups and forums.</p>
+              </div>
+              <div id="impact">
+                  <h2>----Social Impact----</h2>
+                  <p>Welcome to Study Arena, a dynamic platform dedicated to empowering students through comprehensive educational support and career development opportunities.</p>
+                  <p>Beyond academics, Study Arena is committed to making a difference in students' lives. We support students who face financial barriers to education by facilitating donations and scholarships to ensure no student is left behind.</p>
+                  <p>Join us at Study Arena and embark on a journey of learning, growth, and endless possibilities. Together, we can shape a brighter future for the next generation.</p>
+              </div>
+          </div>
+          <div class="row">
+              
+              <div id="mission">
+                  <h2>Mission</h2>
+                  <p>Our mission is to provide students with access to high-quality learning resources, including revision materials, past papers, and interactive study groups.</p>
+                  
+              </div>
+              <div id="vision">
+                  <h2>Vision</h2>
+                  <p>Driven by a passion for education and innovation, 
+                    Study Arena envisions a future where every student has equal access to quality learning resources and career opportunities.</p>
+                  
+              </div>
+          </div>
+      
+          <div class="row">
+              <div id="get-in-touch">
+                  <h2>Get in touch</h2>
+                  <p>Address: P.O. Box 1250-00232, Ruiru</p>
+                  <p>Phone: +254114346235</p>
+                  <p>Email: evansomondi390@gmail.com</p>
+              </div>
+          <div class="row">
+              <div id="contact">
+                   <h2>Contact Us</h2>
+                   <p>Address: P.O. Box 1250-00232, Ruiru</p>
+                   <p>Phone: +254114346235</p>
+                   <p>Email: evansomondi390@gmail.com</p>
+              </div>
+            
+          </div>
+  
+          <div class="row">
+              <div id="media">
+                  <a href="https://www.linkedin.com/in/evans-omondi-0b9643270/" target="_blank">
+                      <i class="fa-brands fa-linkedin"></i> LinkedIn
+                      </a><br>
+                      <a href="https://www.instagram.com/evansomondi58?igsh=eGw0emR0bjU5M2Fm" target="_blank">
+                      <i class="fa-brands fa-instagram"></i> Instagram
+                      </a><br><br>
+                      <a href="https://www.instagram.com/evansomondi58?igsh=eGw0emR0bjU5M2Fm" target="_blank">
+                      <i class="fa-brands fa-facebook"></i> facebook</a><br><br>
+                      <p>Follow us on our social media handles</p>
+              </div>
+        
+      </div>
+      </section>  
 
 
+    <!-- Footer -->
+    <footer id="footer">
+        <h2>Our Trusted Partners</h2>
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-column">
+                    <img src="{% static 'mbele yenu plain.png' %}" alt="Partner 1 Logo" class="footer-logo">
+                    <p class="footer-name">Mbele Yenu Group</p>
+                </div>
+                <div class="footer-column">
+                    <img src="{% static 'Dewd_wood-removebg-preview.png' %}" alt="Partner 2 Logo" class="footer-logo">
+                    <p class="footer-name">Dewd Media Production</p>
+                </div>
+                <div class="footer-column">
+                    <img src="{% static 'Sda plain.png' %}" alt="Partner 3 Logo" class="footer-logo">
+                    <p class="footer-name">Seventh Day Adventist-TUK</p>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p><p>We are immensely grateful to our partners for their unwavering support in nurturing our community,
+                     providing invaluable services, offering motivation, and fostering collaboration.
+                      Your contributions have been instrumental in our success. Thank you for your continued partnership and dedication.</p>
+            </p>
+                <p>&copy; 2024 Study Arena. All rights reserved.</p>
+            </p>
+            </div>
+        </div>
+    </footer>
 
-<!-----Javascript for Toggle Menu------>
-<script>
-    var navLinks = document.getElementById("navLinks");
-    function showMenu(){
-        navLinks.style.right = "0"
-    }
-
-    function hideMenu(){
-        navLinks.style.right = "-200px"
-    }
-</script>
+    <script src="{% static 'assets/script.js' %}"></script> <!-- Link to our JavaScript file -->
 </body>
 </html>
 
