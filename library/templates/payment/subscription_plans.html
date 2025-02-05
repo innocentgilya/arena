@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyArena</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/sty.css' %}">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <span class="logo">StudyArena</span>
+        </div>
+    </nav>
+    <main class="profile-list">
+        <h1>Select a Subscription Plan</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="profiles">
+                {% for plan in plans %}
+                    <div>
+                        <input type="radio" id="plan{{ plan.id }}" name="plan" value="{{ plan.id }}">
+                        <label for="plan{{ plan.id }}">{{ plan.name }} - KSh {{ plan.price }}</label>
+                        <button type="button" class="subscribe-btn" data-id="{{ plan.id }}" data-price="{{ plan.price }}">Subscribe</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </main>
+
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all buttons with the class "subscribe-btn"
+            document.querySelectorAll(".subscribe-btn").forEach((button) => {
+                button.addEventListener("click", function () {
+                    // Retrieve the plan ID and price from data attributes
+                    const planId = this.getAttribute("data-id");
+                    const price = this.getAttribute("data-price");
+    
+                    // Call the payment function with the retrieved values
+                    payWithPaystack(planId, price);
+                });
+            });
+        });
+    
+        function payWithPaystack(planId, amount) {
+            const handler = PaystackPop.setup({
+                key: "pk_test_2ca34efb345487efdd9c8bee39b5b641e6c3eae0", // Replace with your actual Paystack public key
+                email: "{{ request.user.email|default:'example@example.com' }}", // Fallback if email is not available
+                amount: amount * 100, // Amount in kobo (convert KES to its smallest unit)
+                currency: "KES", // Set the currency
+                ref: `{{ request.user.id }}_${new Date().getTime()}`, // Unique reference for each transaction
+                callback: function (response) {
+                    const reference = response.reference;
+    
+                    // Step 1: Create Payment Record
+                    fetch(`/payments/payment/create/${planId}/${reference}/`, { // Use template string to pass arguments
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": getCookie("csrftoken"), // CSRF token for Django
+                        },
+                        body: JSON.stringify({ reference: reference, plan_id: planId }), // Send reference and plan ID to backend
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.success) {
+                            // Step 2: Verify payment status
+                            return fetch("{% url 'payments:verify_with_paystack' %}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": getCookie("csrftoken"),
+                                },
+                                body: JSON.stringify({ reference: reference }),
+                            });
+                        } else {
+                            throw new Error("Failed to create payment record.");
+                        }
+                    })
+                    .then((res) => res.json())
+                    .then((verifyData) => {
+                        if (verifyData.success) {
+                            // Step 3: Update user subscription
+                            return fetch("{% url 'payments:process_payment' %}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": getCookie("csrftoken"),
+                                },
+                                body: JSON.stringify({
+                                    reference: reference,
+                                    user_id: "{{ request.user.id }}",
+                                    plan_id: planId,
+                                }),
+                            });
+                        } else {
+                            throw new Error("Payment verification failed.");
+                        }
+                    })
+                    .then((res) => res.json())
+                    .then((updateData) => {
+                        if (updateData.success) {
+                            alert("Payment and subscription updated successfully!");
+                            window.location.href = "{% url 'userauths:profile-create' %}"; // Redirect to profile creation page
+                        } else {
+                            throw new Error("Failed to update subscription.");
+                        }
+                    })
+                    .catch((err) => {
+                        alert("An error occurred. Please try again.");
+                        console.error(err);
+                    });
+                },
+                onClose: function () {
+                    // Handle payment modal close
+                    alert("Transaction was not completed, window closed.");
+                },
+            });
+    
+            handler.openIframe();
+        }
+    
+        // Function to get the CSRF token (required for Django POST requests)
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+    
+    
+    
+
+
+    
+</body>
+
+</html>
+
+
+

@@ -1,11 +1,27 @@
-{% extends "base.html" %}
+{% extends "partials/base-settings.html" %}
 {% block content %}
-<div class="container">
-    <h2>Update Profile</h2>
-    <form method="POST" enctype="multipart/form-data">
+<div class="form-box">
+    <h1 id="title">Update profile</h1>
+    <form class="createprofile-frm" action="{% url 'settings:profile_update' profile_id=profile.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div class="input-group">
+            <div class="input-field" id="nameField">
+                {{ form.name }}
+            </div>
+            <div class="input-field" id="nameField">
+                {{ form.school }}
+            </div>
+            <div class="input-field" id="nameField">
+                {{ form.profile_picture }}
+            </div>
+            <div class="input-field">
+                <p>Grade level</p>
+                {{ form.grade_level }}
+            </div>
+        </div>
+        <div class="btn-field">
+            <button type="submit">Update Profile</button>
+        </div>
     </form>
 </div>
 {% endblock %}

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'assets/settings-styles.css' %}">
+<link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <div class="side-contaider">
+        <h1>StudyArena</h1>
+        <a href="{% url 'library:profile-home' profile_id=profile.id %}"><i class="fa-solid fa-book"></i> Books</a>
+        <a href="{% url 'library:Ppapers-home' profile_id=profile.id %}"><i class="fa-solid fa-copy"></i></i>Pastpapers</a>
+        <a href="{% url 'library:myshelf' profile_id=profile.id %}"><i class="fa-solid fa-address-book"></i>myshelf</a>
+        <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}"><i class="fa-solid fa-gear"></i></i>Settings</a>
+    </div>
+    <div class="main-container">
+        <nav id="home-page">
+            <form class="search-box" method="GET" action="{% url 'library:search'  profile_id=profile.id %}">
+                <input type="text" name="q" id="search-input" placeholder="Search...">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            <div class="right-nav">
+                <a href=""><i class="fa-regular fa-bell"></i></a>
+                <a href="javascript:void(0)" class="user-icon" onclick="toggleMenu()"><img src="{{ profile.profile_picture.url }}" alt="Profile 1"></a>
+                <a href=""><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <div class="sub-menu-wrp" id="sub-menu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="" alt="">
+                            <h3>{{ profile.name }}</h3>
+                        </div>
+                        <hr>
+                        <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}" class="sub-menu-link">
+                            <i class="fa-solid fa-gear"></i>
+                            <p>Settings</p>
+                            <span>></span>
+                        </a>                              
+                        <a href="{% url 'userauths:profile_list' %}" class="sub-menu-link">
+                            <i class="fa-solid fa-users"></i>
+                            <p>Profiles</p>
+                            <span>></span>
+                        </a>
+                        <a href="{% url 'userauths:sign-out' %}" class="sub-menu-link">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>Logout</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="home-page" class="nav-2">
+            {% for grade in grades %}
+            <a href="{% url 'library:books_by_grade'  grade=grade.0 profile_id=profile.id %}" class="grade-button" id="grade">{{ grade.1 }}</a>
+            {% endfor %}
+        </div>
+    <div class="main-container-homepage">
+        <h3>{{ profile.name }}'s Books Page</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for ppaper in ppapers %}
+                <a href="{% url 'library:get_pdf_link'  book_id=book.id %}"> 
+                    <div class="Ppaper-card">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <div class="Ppaper-cover">
+                            <img src="images/bookcover.png" alt="">
+                        </div>
+                        <div class="Ppaper-information">
+                            <h4>{{ ppaper.title }}</h4>
+                            <p>{{ ppaper.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <h3>Maths books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for ppaper in ppapers %}
+                <a href="{% url 'library:get_pdf_link'  book_id=book.id %}"> 
+                    <div class="Ppaper-card">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <div class="Ppaper-cover">
+                            <img src="images/bookcover.png" alt="">
+                        </div>
+                        <div class="Ppaper-information">
+                            <h4>{{ ppaper.title }}</h4>
+                            <p>{{ ppaper.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h3>English books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for ppaper in ppapers %}
+                <a href="{% url 'library:get_pdf_link'  book_id=book.id %}"> 
+                    <div class="Ppaper-card">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <div class="Ppaper-cover">
+                            <img src="images/bookcover.png" alt="">
+                        </div>
+                        <div class="Ppaper-information">
+                            <h4>{{ ppaper.title }}</h4>
+                            <p>{{ ppaper.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <h3>Kiswahili books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for ppaper in ppapers %}
+                <a href="{% url 'library:get_pdf_link'  book_id=book.id %}"> 
+                    <div class="Ppaper-card">
+                        <i class="fa-regular fa-bookmark"></i>
+                        <div class="Ppaper-cover">
+                            <img src="images/bookcover.png" alt="">
+                        </div>
+                        <div class="Ppaper-information">
+                            <h4>{{ ppaper.title }}</h4>
+                            <p>{{ ppaper.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+
+<script src="{% static 'script.js' %}"></script>
+
+<script>
+    let subMenu = document.getElementById("sub-menu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#search-input').autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "{% url 'library:autocomplete_search' profile.id %}",
+                    data: {
+                        'term': request.term // This is the search term
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        response(data); // Pass the list of results to the autocomplete UI
+                    }
+                });
+            },
+            minLength: 2, // Trigger autocomplete after 2 characters
+            select: function(event, ui) {
+                // Navigate to the selected item (optional)
+                window.location.href = `/book/${ui.item.id}/`; // Update URL as needed
+            }
+        });
+    });
+    </script>
+</html>

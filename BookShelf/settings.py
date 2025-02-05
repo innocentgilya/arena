@@ -22,6 +22,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+
+
+
+
+SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, 'BookShelf/credentials/vernal-segment-445921-k9-8c59294dc1a2.json')
+
+file_path = 'BookShelf/credentials/vernal-segment-445921-k9-8c59294dc1a2.json'
+if os.path.exists(file_path):
+    print("File exists!")
+else:
+    print("File not found.")
+
+
+
+
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -45,20 +63,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     #my apps
     'library',
     'userauths',
+    'payments',
+    'settings',
+    'social',
+
     # Allauth apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.microsoft',
+    'allauth.socialaccount.providers.apple',
+    'user_sessions',
+    "channels"
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', 
+    'user_sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +97,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'BookShelf.urls'
+
+SESSION_ENGINE = 'user_sessions.backends.db'
 
 TEMPLATES = [
     {
@@ -168,6 +199,18 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
+SITE_ID = 1  # Use the site ID from the admin panel
+LOGIN_REDIRECT_URL = '/'  # Redirect after successful login
+LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+
+# Optional settings
+ACCOUNT_LOGOUT_ON_GET = True  # Logout when the logout link is clicked
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+
+
+
 LOGIN_URL = 'login'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -212,3 +255,27 @@ if config.is_valid_platform():
                 'PORT': db_settings['port'],
     },
 }
+
+#payment paystack
+PAYSTACK_SECRET_KEY = "123"
+PAYSTACK_PUBLIC_KEY = "123"
+PAYSTACK_BASE_URL = 'https://api.paystack.co'  # Paystack API base URL
+
+
+#chennels for the chat function to happen 
+ASGI_APPLICATION = "BookShelf.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # For development (use Redis in production)
+    },
+}
+
+#CHANNEL_LAYERS = {
+ #   "default": {
+  #      "BACKEND": "channels_redis.core.RedisChannelLayer",
+   #     "CONFIG": {
+    #        "hosts": [("127.0.0.1", 6379)],
+     #   },
+   # },
+#}
+

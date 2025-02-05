@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.utils.timezone import now
 from django.conf import settings
+from django.contrib.sessions.models import Session
 
 # Create your models here.
 # Define grade choices
@@ -49,4 +51,13 @@ class Profile(models.Model):
         return self.name
 
 
+class UserSession(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)  # Link to your custom user model
+    session = models.OneToOneField(Session, on_delete=models.CASCADE)  # Link to Django's session model
+    ip_address = models.GenericIPAddressField()  # Track the user's IP
+    user_agent = models.TextField()  # Track the browser/device details
+    created_at = models.DateTimeField(default=now)  # When the session was created
+
+    def __str__(self):
+        return f"Session for {self.user.email} from {self.ip_address}"
 

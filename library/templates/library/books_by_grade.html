@@ -1,0 +1,78 @@
+{% extends 'partials/Homebase.html' %}
+{% load static %}
+{% block content %}
+        <h3>{{ profile.name }}'s Books Page</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for book in books %}
+                <a href="{% url 'library:opn-book2'  profile_id=profile.id id=book.id%}"> 
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" alt="">
+                        </div>
+                        <div class="book-information">
+                            <h4>{{ book.title }}</h4>
+                            <p>{{ book.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <h3>Maths books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for book in books %}
+                <a href="{% url 'library:opn-book2'  profile_id=profile.id id=book.id %}"> 
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" alt="">
+                        </div>
+                        <div class="book-information">
+                            <h4>{{ book.title }}</h4>
+                            <p>{{ book.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h3>English books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for book in books %}
+                <a href="{% url 'library:opn-book2'  profile_id=profile.id id=book.id%}"> 
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" alt="">
+                        </div>
+                        <div class="book-information">
+                            <h4>{{ book.title }}</h4>
+                            <p>{{ book.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h3>Kiswahili books</h3>
+        <div class="bookcover-display-card">
+            <div class="book-horizontal">
+                {% for book in books %}
+                <a href="{% url 'library:opn-book2'  profile_id=profile.id id=book.id %}"> 
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" alt="">
+                        </div>
+                        <div class="book-information">
+                            <h4>{{ book.title }}</h4>
+                            <p>{{ book.grade }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock content %}

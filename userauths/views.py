@@ -7,6 +7,7 @@ from userauths.models import User, Profile
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.utils.decorators import method_decorator
+from django.http import HttpResponseForbidden
 
 
 #User = settings.AUTH_USER_MODEL
@@ -21,17 +22,17 @@ def register_view(request):
             messages.success(request, f'Hey {username}, your account was created successfuly')
 
             # Authenticate the user with the username and password from the form
-            user = authenticate(username=form.cleaned_data.get('email'),
-                                    password=form.cleaned_data.get('password1')
+            user = authenticate(
+                username=form.cleaned_data.get('email'),
+                password=form.cleaned_data.get('password1')
             )
             if user is not None:
                 login(request, user)
-                return redirect('userauths:profile-create') # Redirect to profile creation 
+                return redirect('payments:subscription_plans') # Redirect to subscription plan selection page
     else:
         print('User cannot be registerd')
         form = UserRegistrationForm()
 
-    form = UserRegistrationForm()
     context = {'form' : form }
     return render(request, "userauths/sign-up.html", context)
 
@@ -131,12 +132,26 @@ class ProfileCreate(View):
     
     def post(self, request, *args, **kwargs):
         form = ProfileCreateForm(request.POST, request.FILES)  # Note the addition of request.FILES
+
+        # Check the user's active subscription plan
+        active_payment = request.user.payments.order_by('-created_at').first()
+        if not active_payment:
+            return HttpResponseForbidden("No active subscription found. Please subscribe to a plan.")
+
+        max_profiles = active_payment.plan.max_profiles
+        current_profiles = request.user.user_profiles.count()
+
+        if current_profiles >= max_profiles:
+            return HttpResponseForbidden(f"Profile limit exceeded. Your plan allows {max_profiles} profiles.")
+        
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user = request.user  # Assuming you want to link the profile to the logged-in user
+            profile.user = request.user  # Link the profile to the logged-in user
             profile.save()
-            return redirect('userauths:profile_list')  # Change this to the appropriate URL name for your profile list
+            return redirect('userauths:profile_list')  
+        
         context = {
             'form': form
         }
         return render(request, 'userauths/ProfileCreate.html', context)
+

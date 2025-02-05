@@ -1,0 +1,31 @@
+{% for item in chat_history %}
+    {% if item.message %}
+        <p><strong>{{ item.sender.name }}</strong>: {{ item.message }}</p>
+    {% elif item.voice_note %}
+        <p><strong>{{ item.sender.name }}</strong>: <audio controls><source src="{{ item.voice_note.url }}" type="audio/mpeg"></audio></p>
+    {% elif item.pdf %}
+        <p><strong>{{ item.sender.name }}</strong>: <a href="{{ item.pdf.url }}" download>Download PDF</a></p>
+    {% elif item.document %}
+        <p><strong>{{ item.sender.name }}</strong>: <a href="{{ item.document.url }}" download>Download Document</a></p>
+    {% endif %}
+{% endfor %}
+
+<script>
+    const roomName = "some_room_name"; // Change dynamically based on chat
+    const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/`);
+
+    chatSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const messageContainer = document.getElementById("chat-messages");
+        const messageElement = document.createElement("div");
+        messageElement.innerHTML = `<strong>${data.sender}:</strong> ${data.message}`;
+        messageContainer.appendChild(messageElement);
+    };
+
+    function sendMessage() {
+        const messageInput = document.getElementById("message-input");
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({ message: message, sender: "User1" }));
+        messageInput.value = "";
+    }
+</script>

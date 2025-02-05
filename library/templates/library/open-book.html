@@ -1,82 +1,212 @@
 {% extends 'partials/base.html' %}
 {% load static %}
 {% block content %}
-    <!------mainopenbook------>
-    <div class="container read-container">
-        <div class="row">
-            {% if book.pdf_file %}
-            <div class="open-book">
-                <!-- Container for PDF.js -->
-                <div id="pdf-container" style="width: 700px; height: 750px; border: none; overflow-y: scroll;"></div>
-            </div>
-            {% endif %}
-            <!-- Uncomment this section if you want to display the right sidebar -->
-            <!--
-            <div class="right-sidebar">
-                <div class="sidebooks-list">
-                    <a href="" class="small-bookcover"><img src="{{ book.book_cover.url }}" alt=""></a>
-                    <div class="book-info">
-                        <p>{{ book.title }}</p>
-                        <p>By: {{ book.author }}</p>
-                    </div>
-                </div>
-            </div>
-            -->
+    <!-- Main Container -->
+    <!-- Main Container -->
+<div class="container" id="read-container">
+    <!-- Book Views -->
+    {% if book.pdf_file %}
+        <!-- Original Scrolling View -->
+        <div id="scroll-view" class="view-mode">
+            <div id="pdf-scroll-container"></div>
         </div>
+
+        <!-- Single Page Navigation View -->
+        <div id="single-page-view" class="view-mode" style="display: none;">
+            <canvas id="pdf-canvas"></canvas>
+            <div class="navigation">
+                <button id="prev-page" class="nav-button">← Previous</button>
+                <button id="next-page" class="nav-button">Next →</button>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+        <div id="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading your document...</p>
+        </div>
+        <div id="pdf-container"></div>
     </div>
 
     <!-- Include PDF.js library from a reliable CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.worker.min.js"></script>
+
+    <!-- JavaScript for PDF Rendering and Navigation -->
     <script>
+        // URL of the PDF served by Django
         var url = "{% url 'library:serve_pdf' book_id=book.id %}";
         console.log('PDF URL:', url);  // Debug log
-
+    
+        // Initialize PDF.js
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.worker.min.js';
-
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
+    
+        var pdfDoc = null;
+        var currentPage = 1;
+        var scale = 1.5; // Adjust scale as needed
+    
+        // Elements for Single Page View
+        var singleCanvas = document.getElementById('pdf-canvas');
+        var singleCtx = singleCanvas.getContext('2d');
+    
+        // Elements for Scroll View
+        var scrollContainer = document.getElementById('pdf-scroll-container');
+    
+        // Elements for Loading Spinner
+        var loadingSpinner = document.getElementById('loading-spinner');
+    
+        // Show loading spinner
+        function showLoader() {
+            loadingSpinner.style.display = 'flex';
+        }
+    
+        // Hide loading spinner
+        function hideLoader() {
+            loadingSpinner.style.display = 'none';
+        }
+    
+        // Start loading the PDF
+        showLoader(); // Show the loader at the start
+    
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            pdfDoc = pdf;
             console.log('PDF loaded');
-
-            // Loop through each page and render it
-            for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-                pdf.getPage(pageNumber).then(function(page) {
-                    console.log('Page loaded');
-
-                    var scale = 1.5;
-                    var viewport = page.getViewport({scale: scale});
-
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    page.render(renderContext).promise.then(function() {
-                        console.log('Page rendered');
-                        document.getElementById('pdf-container').appendChild(canvas);
-                    });
-                });
-            }
-        }, function(reason) {
-            console.error('Error loading PDF:', reason);
+            hideLoader(); // Hide the loader once the PDF is ready
+            renderScrollView(); // Render Scroll View by default
+        }).catch(function(error) {
+            console.error('Error loading PDF:', error);
+            hideLoader(); // Hide the loader even if there's an error
         });
-    </script>
-    <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('keydown', event => {
-            if (event.ctrlKey && (event.key === 'p' || event.key === 's' || event.key === 'u' || event.key === 'Shift' || event.key === 'j')) {
-                event.preventDefault();
-                }
+    
+        // Function to Render Scroll View
+        function renderScrollView() {
+            scrollContainer.innerHTML = ''; // Clear existing content
+            showLoader(); // Show the loader while rendering pages
+    
+            let pagesRendered = 0;
+    
+            for (let pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
+                (function(pageNum) {
+                    pdfDoc.getPage(pageNum).then(function(page) {
+                        var viewport = page.getViewport({ scale: scale });
+                        var canvas = document.createElement('canvas');
+                        var context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+    
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+    
+                        page.render(renderContext).promise.then(function() {
+                            scrollContainer.appendChild(canvas);
+                            pagesRendered++;
+    
+                            // Hide loader when all pages are rendered
+                            if (pagesRendered === pdfDoc.numPages) {
+                                hideLoader();
+                            }
+                        });
+                    });
+                })(pageNumber);
+            }
+        }
+    
+        // Function to Render Single Page View
+        function renderSinglePage(pageNumber) {
+            if (!pdfDoc) return;
+    
+            showLoader(); // Show the loader while rendering the page
+    
+            pdfDoc.getPage(pageNumber).then(function(page) {
+                var viewport = page.getViewport({ scale: scale });
+                singleCanvas.height = viewport.height;
+                singleCanvas.width = viewport.width;
+    
+                var renderContext = {
+                    canvasContext: singleCtx,
+                    viewport: viewport
+                };
+    
+                page.render(renderContext).promise.then(function() {
+                    console.log('Page rendered');
+                    hideLoader(); // Hide the loader once the page is rendered
+                });
             });
-    </script>
-    <script>
+        }
+    
+        // Navigation Buttons for Single Page View
+        document.getElementById('next-page').addEventListener('click', function() {
+            if (currentPage < pdfDoc.numPages) {
+                currentPage++;
+                renderSinglePage(currentPage);
+            }
+        });
+    
+        document.getElementById('prev-page').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderSinglePage(currentPage);
+            }
+        });
+    
+        // Toggle Between Views
+        document.getElementById('toggle-view').addEventListener('click', function() {
+            var scrollView = document.getElementById('scroll-view');
+            var singlePageView = document.getElementById('single-page-view');
+            var toggleButton = document.getElementById('toggle-view');
+    
+            if (scrollView.style.display === 'none') {
+                // Switch to Scroll View
+                scrollView.style.display = 'flex';
+                singlePageView.style.display = 'none';
+                toggleButton.textContent = 'Switch to Single Page View';
+                renderScrollView();
+            } else {
+                // Switch to Single Page View
+                scrollView.style.display = 'none';
+                singlePageView.style.display = 'flex';
+                toggleButton.textContent = 'Switch to Scroll View';
+                renderSinglePage(currentPage);
+            }
+        });
+    
+        // Keyboard Navigation for Single Page View
+        document.addEventListener('keydown', function(event) {
+            var singlePageView = document.getElementById('single-page-view');
+            if (singlePageView.style.display === 'flex') {
+                if (event.key === 'ArrowRight') {
+                    if (currentPage < pdfDoc.numPages) {
+                        currentPage++;
+                        renderSinglePage(currentPage);
+                    }
+                } else if (event.key === 'ArrowLeft') {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderSinglePage(currentPage);
+                    }
+                }
+            }
+        });
+    
+        // Security Measures
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+    
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && ['p', 's', 'u', 'Shift', 'j'].includes(event.key)) {
+                event.preventDefault();
+            }
+        });
+    
         window.onbeforeprint = function() {
             return false;
         };
     </script>
+    
 {% endblock content %}
+

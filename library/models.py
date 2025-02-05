@@ -6,18 +6,18 @@ from userauths.models import Profile
 # Create your models here.
 # Define grade choices
 GRADE_CHOICES = [
-    ('Grade 1', 'Grade 1'),
-    ('Grade 2', 'Grade 2'),
-    ('Grade 3', 'Grade 3'),
-    ('Grade 4', 'Grade 4'),
-    ('Grade 5', 'Grade 5'),
-    ('Grade 6', 'Grade 6'),
-    ('Grade 7', 'Grade 7'),
-    ('Grade 8', 'Grade 8'),
-    ('Grade 9', 'Grade 9'),
-    ('Grade 10', 'Grade 10'),
-    ('Grade 11', 'Grade 11'),
-    ('Grade 12', 'Grade 12'),
+    ('1', 'Grade 1'),
+    ('2', 'Grade 2'),
+    ('3', 'Grade 3'),
+    ('4', 'Grade 4'),
+    ('5', 'Grade 5'),
+    ('6', 'Grade 6'),
+    ('7', 'Grade 7'),
+    ('8', 'Grade 8'),
+    ('9', 'Grade 9'),
+    ('10', 'Grade 10'),
+    ('11', 'Grade 11'),
+    ('12', 'Grade 12'),
 ]
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
@@ -29,6 +29,7 @@ class Book(models.Model):
     published_date = models.DateField()
     allowed_users = models.ManyToManyField(settings.AUTH_USER_MODEL)
     pdf_file = models.FileField(upload_to='book_pdfs/')
+    drive_file_id = models.CharField(max_length=255, unique=True, null=True)
 
     
     def __str__(self):

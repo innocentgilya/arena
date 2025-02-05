@@ -3,7 +3,7 @@ from .models import Book, UserBook
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'grade', 'subject', 'book_cover', 'pdf_file']
+    list_display = ['title', 'author', 'grade', 'subject', 'book_cover', 'pdf_file', 'drive_file_id']
 
 #class UserBook(admin.ModelAdmin):
     #list_display = ['user', 'profile', 'book', 'current', 'read', '']

@@ -29,7 +29,9 @@
             {% for profile in profiles %}
             <a href="{% url 'library:profile-home' profile_id=profile.id %}">
                 <div class="profile">
+                    {% if profile.profile_picture %}
                     <img src="{{ profile.profile_picture.url }}" alt="Profile 1">
+                    {% endif %}
                     <p>{{ profile.name }}</p>
                 </div>
             </a>

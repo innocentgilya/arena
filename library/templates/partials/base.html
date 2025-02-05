@@ -19,15 +19,15 @@
         </div>
         <div class="nav-middle flex-div">
             <div class="search-box flex-div">
-                <form  method="GET" action="{% url 'library:search' user_id=profile.user.id profile_id=profile.id %}">
-                    <input type="text" placeholder="Search for books...">
+                <form  method="GET" action="{% url 'library:search'  profile_id=profile.id %}">
+                    <input type="text" id="search-input" name="q" placeholder="Search for books...">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
         </div>
         <div class="nav-right flex-div">
             <a href=""><i class="fa-regular fa-bell"></i></a>
-            <a href="javascript:void(0)" class="user-icon" onclick="toggleMenu()"><img src="{{ profile.profile_picture.url }}" alt="Profile 1"></i></i></a>
+            <a href="javascript:void(0)" class="user-icon" onclick="toggleMenu()"><img src="{{ profile.profile_picture.url }}" alt="Profile 1"></i></a>
         </div>
         <div class="sub-menu-wrp" id="sub-menu">
             <div class="sub-menu">
@@ -54,6 +54,13 @@
             </div>
         </div>
     </nav>
+    <div class="grade-buttons-container">
+        <div class="grade-buttons">
+            {% for grade in grades %}
+            <a href="" class="grade-button">{{ grade.1 }}</a>
+            {% endfor %}
+        </div>
+    </div>
 
     <!----------sidebar---------->
     <div class="side-bar">
@@ -69,6 +76,13 @@
             {% else %}
                 <a href="#"><i class="fa-solid fa-book-open-reader"></i><p>My Shelf</p></a>
             {% endif %}
+            <!-- Toggle Button -->
+            <div class="view-toggle">
+                <button id="toggle-view" class="toggle-button">
+                    Switch to Single Page View
+                </button>
+            </div> 
+
         </div>
     </div>
 
@@ -82,4 +96,24 @@
     function toggleMenu(){
         subMenu.classList.toggle("open-menu");
     }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#search-input').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "{% url 'library:autocomplete_search' profile.id %}",
+                data: {
+                    'term': request.term // This is the search term
+                },
+                dataType: 'json',
+                success: function(data) {
+                    response(data);  // Pass the list of results to the autocomplete UI
+                }
+            });
+        },
+        minLength: 2,  // Trigger autocomplete after 2 characters
+    });
+});
 </script>

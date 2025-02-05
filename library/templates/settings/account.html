@@ -1,27 +1,80 @@
-{% extends 'partials/base4.html' %}
 {% load static %}
-{% block content %}
-
-    <!-----main ---->
-    <div class="container"> 
-        <h3>Account</h3>
-        <div class="containerlist">
-            <p>Account name: {{ user.username }}</p>
-            <p>Account email: {{ user.email }}</p>
-            <hr>
-            <h4>profile</h4>
-                <div class="profile-settings">
-                    <img src="{{ profile.profile_picture.url }}" alt="Profile 1">
-                    <p>{{ profile.name }}</p>
-                </div>
-            <a href=""><button>Delete proflie</button></a>
-        </div>
-        <hr>
-        <h4>Make changes</h4>
-        <a href=""><button>Edit Account</button></a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{% static 'assets/settings-styles.css' %}">
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <div class="side-contaider">
+        <h1>StudyArena</h1>
+        <a href="{% url 'library:profile-home' profile_id=profile.id %}"><i class="fa-solid fa-book"></i> Books</a>
+        <a href="{% url 'library:Ppapers-home' profile_id=profile.id %}"><i class="fa-solid fa-copy"></i></i>Pastpapers</a>
+        <a href="{% url 'library:myshelf' profile_id=profile.id %}"><i class="fa-solid fa-address-book"></i>myshelf</a>
+        <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}"><i class="fa-solid fa-gear"></i></i>Settings</a>
     </div>
-
-<script src="{% static 'assets/script.js' %}"></script>
+    <div class="main-container">
+        <nav>
+            <h2>Settings</h2>
+            <div class="right-nav">
+                <a href=""><i class="fa-regular fa-bell"></i></a>
+                <a href="javascript:void(0)" class="user-icon" onclick="toggleMenu()"><img src="{{ profile.profile_picture.url }}" alt="Profile 1"></i></i></a>
+                <a href=""><i class="fa-solid fa-chevron-down"></i></a>
+                <div class="sub-menu-wrp" id="sub-menu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="" alt="">
+                            <h3>{{ profile.name }}</h3>
+                        </div>
+                        <hr>
+                        <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}" class="sub-menu-link">
+                            <i class="fa-solid fa-gear"></i>
+                            <p>Settings</p>
+                            <span>></span>
+                        </a>                              
+                        <a href="{% url 'userauths:profile_list' %}" class="sub-menu-link">
+                            <i class="fa-solid fa-users"></i>
+                            <p>Profiles</p>
+                            <span>></span>
+                        </a>
+                        <a href="{% url 'userauths:sign-out' %}" class="sub-menu-link">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <p>Logout</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="nav-2">
+            <a id="profile-id" href="">Profile</a>
+            <a id="account-id"href="">Account</a>
+        </div>
+        <div class="main-container-2">
+            <div class="information-div">
+                <h4>Profile picture: </h4> <img src="{{profile.profile_picture.url}}" alt="">
+                <h4>Name: </h4>{{profile.name}}
+                <h4>School: </h4>{{profile.school}}
+                <h4>Grade: </h4>{{profile.grade}}
+                <div class="button">
+                    <a href="{% url 'settings:profile_update' profile_id=profile.id %}">Make changes</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html> 
-{% endblock content %}
+<script>
+    let subMenu = document.getElementById("sub-menu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</html>

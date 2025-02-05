@@ -1,0 +1,540 @@
+*{
+    margin: 0;
+    padding:0;
+    font-family: 'poppins', sansefir;
+    box-sizing: border-box; 
+}
+
+
+/*---the side bar window --*/
+.side-contaider{
+    height: 100vh;
+    width: 13%;
+    background-color:#04091e;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.side-contaider h1{
+    font-size: 20px;
+    color: white;
+    font-family: 'Russo One', 'poppins', sans-serif;
+    padding-top: 5px;
+    padding-bottom: 25px;
+    padding-left: 7px;
+}
+.side-contaider a{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    width: 95%;
+    padding: 5px 2px;
+    font-size: 15px;
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.5s;
+}
+a{
+    text-decoration: none;
+}
+.side-contaider a i{
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.side-contaider a:hover{
+    background-color: gray;
+}
+.user-icon img{
+    width: 30px;  /* Adjust size as needed */
+    height: 30px;  /* Adjust size as needed */
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/*----------sub menu ---------*/
+
+.sub-menu-wrp{
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.sub-menu-wrp.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+}
+.user-info h3{
+    font-weight: 500;
+}
+.user-info img{
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+}
+.sub-menu-link i{
+    width: 40px;
+    padding: 8px;
+    margin-right: 15px;
+}
+.sub-menu-link span{
+    font-size:  22px;
+    transition: transform 0.5s; 
+}
+.sub-menu-link:hover span{
+    transform: translate(5px); 
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+
+
+
+/*-----manin box container -----*/
+/*-----manin box container top navigation -----*/
+.main-container{
+    height: 100vh;
+    padding-left: 13%;
+    top: 0;
+}
+.main-container nav{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+.main-container h2{
+    padding-left: 7px;
+    font-weight: 100;
+    font-size: 20px;
+}
+.main-container .right-nav{
+    padding-right: 7px;
+}
+.main-container .right-nav a{
+    padding-left: 15px;
+    text-decoration: none;
+}
+
+/*-----manin box container bottom navigation -----*//*-----manin box container bottom navigation -----*/
+/*-----manin box container bottom navigation -----*//*-----manin box container bottom navigation -----*/
+/*-----manin box container bottom navigation -----*//*-----manin box container bottom navigation -----*/
+
+.main-container .nav-2{
+    position: sticky;
+    top: 53px;
+    z-index: 10;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+.main-container .nav-2 #profile-id{
+    padding-left: 7px;
+    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.main-container .nav-2 #profile-id:hover{
+    background-color: gray;
+}
+.main-container .nav-2 #account-id{
+    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+.main-container .nav-2 #account-id:hover{
+    background-color: gray;
+}
+.main-container .nav-2 a{
+    padding-left: 20px;
+    color: black;
+}
+
+/*-----manin box container container 2 -----*//*-----manin box container container 2 -----*/
+/*-----manin box container container 2 -----*//*-----manin box container container 2 -----*/
+/*-----manin box container container 2 -----*//*-----manin box container container 2 -----*/
+.main-container .main-container-2 {
+    background: #E5F0FF;
+    height: auto;
+    padding: 50px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}   
+.Profileform{
+    padding-top: 10px;
+    background: white;
+    height: auto;
+    width: 80%;
+    border-radius: 30px;
+    padding: 50px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-box{
+    height: auto;
+    padding-top: 50px;
+}
+.individual-input{
+    padding: 20px;
+}
+.input-box span{
+    padding-left: 20px;
+}
+.individual-input input{
+    height: 40px;
+    width: 250px;
+    padding-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.individual-input input ::placeholder{
+    height: 25px;
+}
+.Profileform button{
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: #E5F0FF;
+    color: black;
+    box-shadow: none;
+    transition: background-color 0.9s;
+    font-size: 15px;
+    display: block;
+    margin-left: 30%;
+}
+.Profileform button:hover{
+    background-color: gray;
+}
+
+
+
+/*----------Profile update form -------------*//*----------Profile update form -------------*/
+/*----------Profile update form -------------*//*----------Profile update form -------------*/
+/*----------Profile update form -------------*//*----------Profile update form -------------*/
+/* Form container styling */
+.form-box {
+    width: 90%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 100px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-field input, .input-field select, .input-field textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Button styling */
+.btn-field {
+    text-align: center;
+}
+
+.btn-field button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgba(4, 9, 30);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-field button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+/*---------information-div-----------*//*---------information-div-----------*/
+/*---------information-div-----------*//*---------information-div-----------*/
+/*---------information-div-----------*//*---------information-div-----------*/
+.information-div{
+    padding-top: 10px;
+    background: white;
+    height: auto;
+    width: 80%;
+    border-radius: 30px;
+    padding: 50px 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+}
+.information-div img{
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+.information-div a{
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: #E5F0FF;
+    color: black;
+    box-shadow: none;
+    transition: background-color 0.9s;
+    font-size: 15px;
+    display: block;
+    margin-top: 100px;
+}
+.information-div button:hover{
+    background-color: gray;
+}
+
+
+
+/*------------open pdf----------*//*------------open pdf----------*/
+/*------------open pdf----------*//*------------open pdf----------*/
+/*------------open pdf----------*//*------------open pdf----------*/
+.main-container-pdf{
+    background: #E5F0FF;
+    height: auto;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 0;
+}
+.book-display-content{
+    margin-bottom: 50px;
+}
+
+
+/*------------display book cover ----------*//*------------display book cover ----------*/
+/*------------display book cover ----------*//*------------display book cover ----------*/
+.main-container-homepage{
+    background: #E5F0FF;
+    height: auto;
+    min-height: 100vh;
+}
+.main-container-homepage h3{
+    padding-left: 20px;
+}
+.bookcover-display-card{
+    background: #E5F0FF;
+    height: auto;
+    padding: 5px;
+    padding: 10px 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 20px;
+}
+.book-horizontal{
+    display: flex;
+    flex-wrap: nowrap; /* Ensures the items are in one line; use wrap if you want them to wrap to the next line */
+    overflow-x: auto; /* Allows horizontal scrolling if the items overflow the container */
+    gap: 20px; 
+    padding-top: 10px;
+}
+.book-horizontal a{
+    text-decoration: none;
+}
+.book-card{
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    width: 180px;
+    text-align: center;
+    transition: transform 0.3s ease; 
+}
+.book-card:hover{
+    transform: translateY(-5px);
+}
+.book-card img{
+    width: 100%;
+    height: auto;
+} 
+.book-card h4{
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: #000;
+}
+.book-card p{
+    padding-bottom: 5px;
+    font-size: 13px;
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #000;
+}
+.search-box{
+    margin-left: 20px;
+    width: auto;
+    border: 0.3px solid black;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+.search-box input{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 500px;
+    height: 30px;
+    border: 0;
+    outline: 0;
+    background: transparent; 
+}
+.search-box input ::placeholder{
+    font-size: 40px;
+    color: black;
+}
+.search-box i{
+    width: 30px;
+}
+.search-box button{
+    background: transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0;
+}
+.nav-2 #grade{
+    border: 0.1px solid black;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 2px;
+    transition: transform 0.9s ease; 
+}
+.nav-2 #grade:hover{
+    background-color: gray;
+}
+#home-page {
+    background: #E5F0FF;
+}
+
+
+
+
+/*------------display Past-papter cover ----------*//*------------display Past-papter cover ----------*/
+/*------------display Past-papter cover ----------*//*------------display Past-papter cover ----------*/
+/*------------display Past-papter cover ----------*//*------------display Past-papter cover ----------*/
+.Ppaper-card{
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    width: 230px;
+    height: 370px;
+    text-align: center;
+    transition: transform 0.3s ease; 
+}
+
+.Ppaper-card:hover{
+    transform: translateY(-5px);
+}
+.Ppaper-card img{
+    padding: 20px 20px;
+    width: 100%;
+    height: auto;
+} 
+.Ppaper-card h4{
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: #000;
+}
+.Ppaper-card p{
+    padding-bottom: 5px;
+    font-size: 13px;
+    font-family: "Oswald", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: #000;
+}
+.Ppaper-information{
+    border-top: 0.5px solid rgba(0, 0, 0, 0.6); 
+}
+.Ppaper-cover{
+    background-color: rgba(4, 9, 30, 0.5);
+}

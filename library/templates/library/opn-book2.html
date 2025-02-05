@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{% static 'assets/settings-styles.css' %}">
+    <link rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5778f952c5.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <div class="side-contaider">
+        <h1>StudyArena</h1>
+        <a href="{% url 'library:profile-home' profile_id=profile.id %}"><i class="fa-solid fa-book"></i> Books</a>
+        <a href="{% url 'library:Ppapers-home' profile_id=profile.id %}"><i class="fa-solid fa-copy"></i></i>Pastpapers</a>
+        <a href="{% url 'library:myshelf' profile_id=profile.id %}"><i class="fa-solid fa-address-book"></i>myshelf</a>
+        <a href="{% url 'settings:account_display' user_id=user.id profile_id=profile.id %}"><i class="fa-solid fa-gear"></i></i>Settings</a>
+    </div>
+    <div class="main-container">
+        <div class="main-container-pdf">
+                <h3>{{ book.title}}</h3>
+                <div class="book-display-content"  id="viewer" style="width:85%; height:750px;"></div>  
+        </div>
+    </div>
+    
+</body>
+
+<script type="text/javascript" src="https://cloudpdf.io/viewer.min.js"></script>
+<script>
+    fetch('{% url "library:get_cloudpdf_config" book.id %}')
+      .then(response => response.json())
+      .then(config => {
+        CloudPDF(config, document.getElementById('viewer')).then((instance) => {
+          // Handle the instance as needed
+        });
+      })
+      .catch(error => console.error('Error fetching CloudPDF config:', error));
+</script>
+
+<script>
+    let subMenu = document.getElementById("sub-menu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#search-input').autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "{% url 'library:autocomplete_search' profile.id %}",
+                data: {
+                    'term': request.term // This is the search term
+                },
+                dataType: 'json',
+                success: function(data) {
+                    response(data);  // Pass the list of results to the autocomplete UI
+                }
+            });
+        },
+        minLength: 2,  // Trigger autocomplete after 2 characters
+    });
+});
+</script>
+</html>

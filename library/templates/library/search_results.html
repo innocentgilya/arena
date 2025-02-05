@@ -1,27 +1,54 @@
-{% extends 'partials/base.html' %}
+{% extends 'partials/Homebase.html' %}
 {% load static %}
 {% block content %}
-<div class="container"> 
-    <h1>Search Results for "{{ query }}"</h1>
-    <div class="list-container">
-        {% if books %}
-            {% for book in books %}
+<div class="bookcover-display-card">
+
+    {% if books %}
+    <h3>Books</h3>
+    <div class="book-horizontal">
+        {% for book in books %}
             <div class="book-card">
-                <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook">
-                    <img src="{{ book.book_cover.url }}" alt="{{ book.title }}" class="book-cover">
+                <form method="POST" action="{% url 'library:save-book' profile_id=profile.id book_id=book.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Save Book</button>
+                </form>
+                <a href="{% url 'library:opn-book2' profile_id=profile.id id=book.id %}">
+                    <div class="book-cover">
+                        <img src="{{ book.book_cover.url }}" alt="{{ book.title }}">
+                    </div>
+                    <div class="book-information">
+                        <h4>{{ book.title }}</h4>
+                        <p>{{ book.grade }}</p>
+                    </div>
                 </a>
-                <div class="card-info">
-                    <a href="{% url 'library:open-book' profile_id=profile.id id=book.id %}" class="viewbook"><h2>{{ book.title }}</h2></a>
-                    <p>By: {{ book.author }}</p>
-                    <p>Subject: {{ book.subject }}</p>
-                    <p>Grade: {{ book.grade }}</p>
-                </div>
             </div>
-            {% endfor %}
-        {% else %}
-            <p>No books found matching your query.</p>
-        {% endif %}
+        {% endfor %}
     </div>
+    {% endif %}
+
+    {% if past_papers %}
+    <h3>Past Papers</h3>
+    <div class="past-paper-horizontal">
+        {% for paper in past_papers %}
+            <div class="paper-card">
+                <form method="POST" action="{% url 'library:save-paper' profile_id=profile.id paper_id=paper.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Save Paper</button>
+                </form>
+                <a href="{% url 'library:view-paper' profile_id=profile.id id=paper.id %}">
+                    <div class="paper-information">
+                        <h4>{{ paper.title }}</h4>
+                        <p>{{ paper.subject }}</p>
+                        <p>{{ paper.grade }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if not books and not past_papers %}
+    <p>No results found matching your query.</p>
+    {% endif %}
 </div>
-<script src="{% static 'script.js' %}"></script>
 {% endblock content %}
